@@ -130,7 +130,7 @@ class CommandCogs(lkkCog):
             elif message.content.find("wasn't in the database") != -1:
                 try:
                     usermessage=await message.channel.get_partial_message(message.reference.message_id).fetch()
-                    result=usermessage.content.split('`')[1]
+                    result=message.content.split('`')[1]
                     await usermessage.reply(f"此WG帳號`{result}`尚未被link，因此水表機器人沒有追蹤此帳號的戰績。")
                     self.logger.info(f"提醒了{usermessage.author.name}，{result}該帳號並未被link過因此沒有近期戰績。")
                 except:
