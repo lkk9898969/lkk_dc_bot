@@ -17,7 +17,7 @@ class imgmanager(lkkCog):
     def __init__(self, bot: commands.Bot):
         super().__init__(bot)
         logname="img_manager"
-        self.logger=loggerhandler("lkkdc."+logname,logname)
+        self.logger=loggerhandler("lkkdc."+logname,logname,level='INFO')
         self.randomdata=ranimg(self.logger,ranfile,imgfile)
         self.relationword=relationword(self.logger,wordfile)
 

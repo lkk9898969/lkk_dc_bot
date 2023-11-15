@@ -1,7 +1,7 @@
 import logging
 
 def loggerhandler(loggername:str,logname:str,level = 'INFO'):
-    match level:
+    match level.upper():
         case 'DEBUG':
             level=logging.DEBUG
         case 'INFO':

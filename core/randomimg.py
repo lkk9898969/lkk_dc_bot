@@ -45,15 +45,11 @@ class ranimg():
                 if(fileext):
                     pass
             except:
-                self.__logger.info(f"{fileext}不符合隨機資料庫中的副檔名。")
+                self.__logger.info(f"{imgname}的副檔名不符合隨機資料庫中的副檔名或沒有副檔名。")
                 return False
             if (self.imgjson.getimg(imgname)):
                 if fileext in self.__ranjson:
-                    flag=False
-                    for i in self.__ranjson.keys():
-                        if randomname in self.__ranjson[i]:
-                            flag=True
-                    if flag:
+                    if randomname in self.__ranjson[fileext]:
                         array=self.__ranjson[fileext][randomname]
                         array.append(imgname)
                         self.__logger.info(f"已成功將{imgname}歸類於{randomname}下。")
