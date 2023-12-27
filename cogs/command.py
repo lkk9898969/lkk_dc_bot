@@ -89,9 +89,11 @@ class CommandCogs(lkkCog):
     @discord.app_commands.command(name="link_help",description="教您如何將您的 WOWS帳號 與 DC水表機器人 連結。")
     async def link_help1(self,interaction: discord.Interaction):
         await interaction.response.send_message("https://media.discordapp.net/attachments/631827617938538508/1160935048485273600/2023-10-09_214118.png?ex=65367804&is=65240304&hm=aacab01c8b60c690bccb944aaba808ddf57e92b1a7fc031ceb17c04bccb60f08&=&width=575&height=552",ephemeral=True)
+        self.logger.info("{}查看了link的詳細說明。".format(interaction.user.name))
     @commands.command()
     async def link_help(self,ctx : commands.Context):
         await ctx.reply("https://media.discordapp.net/attachments/631827617938538508/1160935048485273600/2023-10-09_214118.png?ex=65367804&is=65240304&hm=aacab01c8b60c690bccb944aaba808ddf57e92b1a7fc031ceb17c04bccb60f08&=&width=575&height=552")
+        self.logger.info("{}查看了link的詳細說明。".format(ctx.author.name))
 
 
 
