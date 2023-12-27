@@ -108,6 +108,19 @@ class quotesmanager(lkkCog):
                 await message.reply(content=self.quotes.getquotes(i))
                 self.logger.info(f"向#{message.channel.name}回傳了老王語錄。")
                 return
+            elif i in message.content:
+                temp=message.content
+                temp=temp.replace(i,"")
+                try:
+                    temp=int(temp)
+                except ValueError:
+                    continue
+                result=self.quotes.getquotes(i,temp-1)
+                if(result):
+                    await message.reply(content=result)
+                    self.logger.info(f"向#{message.channel.name}回傳了指定順位的老王語錄。順位:{temp}")
+                else:
+                    await message.reply(content="指定順位超出範圍!",delete_after=5)
         if result:=self.relationword.getrelationword(message.content):
             await message.reply(content=self.quotes.getquotes(result))
             self.logger.info(f"向#{message.channel.name}回傳了老王語錄。")

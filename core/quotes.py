@@ -40,11 +40,15 @@ class quotes():
         return True
 
 
-    def getquotes(self,index:str) -> str|None:
+    def getquotes(self,index:str,select:int=None) -> str|None:
         try:
+            if select!=None:
+                return self.__json[index][select]
             result=random.choice(self.__json[index])
             return result
         except KeyError:
+            return None
+        except IndexError:
             return None
         except:
             self.__logger.error('',exc_info=True)
