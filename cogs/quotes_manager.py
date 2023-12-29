@@ -42,6 +42,7 @@ class quotesmanager(lkkCog):
 
     @commands.command(name='uqw')
     async def updatequotesword(self,ctx:commands.Context,mainword:str,*words:str):
+        self.logger.info(f"{ctx.author.name}使用了updatequotesword指令。")
         if self.is_admin(ctx):
             try:
                 if words:
@@ -62,25 +63,33 @@ class quotesmanager(lkkCog):
 
     @commands.command(name='老王語錄')
     async def C_WONG_adddquote1(self,ctx:commands.Context,data:str):
+        self.logger.info(f"{ctx.author.name}使用了老王語錄指令。")
         index='老王語錄'
         if (result:=self.__adddquotes(index,data))==0:
             await ctx.reply("新增成功!")
+            self.logger.info(f"{ctx.author.name}新增了老王語錄。")
         elif result==1:
             await ctx.reply("新增失敗! 該語錄已存在。")
+            self.logger.info(f"{ctx.author.name}新增老王語錄時失敗，因該語錄已存在。")
         else:
             await ctx.reply("新增失敗! 原因請請教湯麵")
+            self.logger.info(f"{ctx.author.name}新增老王語錄時因未知原因導致新增失敗。")
         
     
     @app_commands.command(name='c_wong',description="新增老王語錄")
     @app_commands.describe(data="請將語錄輸入於此。")
     async def C_WONG_adddquote2(self,interaction: discord.Interaction,data:str):
+        self.logger.info(f"{interaction.user.name}使用了c_wong指令。")
         index='老王語錄'
         if (result:=self.__adddquotes(index,data))==0:
             await interaction.response.send_message("新增成功!",ephemeral=True)
+            self.logger.info(f"{interaction.user.name}新增了老王語錄。")
         elif result==1:
             await interaction.response.send_message("新增失敗! 該語錄已存在。",ephemeral=True)
+            self.logger.info(f"{interaction.user.name}新增老王語錄時失敗，因該語錄已存在。")
         else:
             await interaction.response.send_message("新增失敗! 原因請請教湯麵",ephemeral=True)
+            self.logger.info(f"{interaction.user.name}新增老王語錄時因未知原因導致新增失敗。")
 
     @app_commands.command(name='quotes_search',description="查找語錄")
     @app_commands.describe(index="選取想要查找的語錄。")
@@ -94,9 +103,9 @@ class quotesmanager(lkkCog):
                 self.logger.info(f"向{interaction.user.name}回傳了{qindex[index]}")
             else:
                 await interaction.response.send_message("該語錄不存在。",ephemeral=True)
+                self.logger.info(f"{interaction.user.name}嘗試查找一個不存在的語錄分類。")
         except:
             self.logger.error('',exc_info=True)
-        pass
 
     
     @commands.Cog.listener()
