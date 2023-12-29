@@ -40,6 +40,7 @@ class imgmanager(lkkCog):
     
     @commands.command()
     async def updateimg(self,ctx:commands.Context,imgname:str,url:str):
+        self.logger.info(f"{ctx.author.name}使用了updateimg指令。")
         if self.is_admin(ctx):
             try:
                 if imgname.endswith('.jpg'):
@@ -58,18 +59,20 @@ class imgmanager(lkkCog):
 
     @commands.command()
     async def updaterandom(self,ctx:commands.Context,imgname:str,randomname:str):
-            if self.is_admin(ctx):
-                try:
-                    if self.randomdata.updaterandomimg('\\'+imgname,randomname):
-                        await ctx.reply("新增成功!")
-                    else:
-                        await ctx.reply("新增失敗! 請詢問湯麵本人發生什麼事了。")
-                        self.logger.info(f"{ctx.author.name}嘗試新增random資料庫但失敗。")
-                except:
-                    self.logger.error("",exc_info=True)
+        self.logger.info(f"{ctx.author.name}使用了updaterandom指令。")
+        if self.is_admin(ctx):
+            try:
+                if self.randomdata.updaterandomimg('\\'+imgname,randomname):
+                    await ctx.reply("新增成功!")
+                else:
+                    await ctx.reply("新增失敗! 請詢問湯麵本人發生什麼事了。")
+                    self.logger.info(f"{ctx.author.name}嘗試新增random資料庫但失敗。")
+            except:
+                self.logger.error("",exc_info=True)
     
     @commands.command()
     async def updateword(self,ctx:commands.Context,mainword:str,*words:str):
+        self.logger.info(f"{ctx.author.name}使用了updateword指令。")
         if self.is_admin(ctx):
             try:
                 reply=self.randomdata.getranimg(mainword)
