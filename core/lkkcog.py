@@ -23,4 +23,5 @@ class lkkCog(commands.Cog):
                 if role in Interaction.user.roles:
                     self.logger.info(f"{Interaction.user.name}通過了是否為管理員檢查。")
                     return True
+        self.logger.info(f"{Interaction.user.name}未能通過管理員檢查。")
         return False
