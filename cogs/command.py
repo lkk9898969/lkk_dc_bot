@@ -1,19 +1,19 @@
 import discord,json
 from discord.ext import commands
 from core.lkkcog import lkkCog
-from core.log import loggerhandler
+from core.lkk_log import loggerhandler
 from typing import Optional
 import random
 random.seed()
 
-admincommand=[["updateimg","\{觸發名.副檔名\} \{超連結\}","用於新增新圖片，副檔名只支持 .jpg 或 .gif。",
+admincommand=[["updateimg","{觸發名.副檔名} {超連結}","用於新增新圖片，副檔名只支持 .jpg 或 .gif。",
         "此為1對1(1個關鍵字對應1個圖片)，若關鍵字已經被新增過的，原本的連結會直接被蓋掉，所以使用之前最好查一下關鍵字有沒有被新增過了。"],
-        ["updaterandom","\{圖片庫觸發名.副檔名\} \{隨機觸發名\}","用於新增隨機觸發，此為主要的觸發方式。\n注意:隨機觸發名**｢不用｣**副檔名。",
+        ["updaterandom","{圖片庫觸發名.副檔名} {隨機觸發名}","用於新增隨機觸發，此為主要的觸發方式。\n注意:隨機觸發名**｢不用｣**副檔名。",
         "此為1對多(1個隨機關鍵字對應多個圖片觸發名)，不會覆蓋掉之前已經存在過的圖片觸發名。另外沒有刪除方法，要刪除請用/apply_to或私訊告知我(湯麵)"],
-        ["updateword","\{隨機觸發名\} \{*多個關聯字\}",
+        ["updateword","{隨機觸發名} {*多個關聯字}",
         "新增關聯字。關聯字會觸發 隨機觸發名 的圖片。簡單來說會將關聯字直接替換成隨機觸發名去調用隨機圖片庫。",
         "此為多對多(1個隨機觸發名可以關聯多個關聯字、1個關聯字也可以被多個隨機觸發名關聯)。若想更加了解我在打啥可以問我(湯麵)。"]]
-command=[["老王語錄","\{語錄\}","用於新增老王語錄","無"]]
+command=[["老王語錄","{語錄}","用於新增老王語錄","無"]]
 scolds=["不要再妄想你是管理員了!","麻煩不要太自戀好嗎?",
         "你484看不懂中文?","權限沒有這麼好拿，同學。",
         "你以為你誰啊?","笑死。","你如果覺得我很嗆就不該亂用這個指令!"]
@@ -22,7 +22,7 @@ class CommandCogs(lkkCog):
     def __init__(self, bot: commands.Bot):
         super().__init__(bot)
         logname="command"
-        self.logger=loggerhandler("lkkdc."+logname,logname)
+        self.logger=loggerhandler("lkkdc."+logname,logname,consoleattach=False)
 
     @commands.Cog.listener()
     async def on_ready(self):
@@ -44,7 +44,7 @@ class CommandCogs(lkkCog):
             for i in slashcommands:
                 result+=i+'\n'
             result+='斜線指令詳情請在<#470227564577947658>使用{/指令名稱}查看。\n'
-            result="一般指令:\n    輸入指令時\{\}請忽略，那只是在告訴你那是個參數。\n"
+            result="一般指令:\n    輸入指令時{}請忽略，那只是在告訴你那是個參數。\n"
             for i in command:
                 result+=f"${i[0]}\n格式: ${i[0]} {i[1]}\n功能:{i[2]}\n附註:{i[3]}\n"
             await interaction.response.send_message(result,ephemeral=True)
@@ -57,7 +57,7 @@ class CommandCogs(lkkCog):
     async def adminhelp(self,interaction:discord.Interaction,command_name:Optional[str]):
         if self.is_admin(Interaction=interaction):
             try:
-                result="可用指令:\n    輸入指令時\{\}請忽略，那只是在告訴你那是個參數。\n"
+                result="可用指令:\n    輸入指令時{}請忽略，那只是在告訴你那是個參數。\n"
                 if command_name:
                     for i in admincommand:
                         if i[0] in command_name:
@@ -124,8 +124,9 @@ class CommandCogs(lkkCog):
                 try:
                     interaction = message.interaction
                     await message.channel.send(f"<@{interaction.user.id}>您已經連結成功! 有以下注意事項 : \n"+
-                                               "1. 水表機器人從現在開始才會記錄您的戰績，所以使用.recent me卻查不到戰績屬於正常。\n"+
-                                               "2. 若太久(14天)未使用.recent me指令，機器人將會停止追蹤您的戰績。")
+                                               "1. 請使用.recent me指令讓水表機器人從現在開始記錄您的戰績\n\
+                                                2. 由於水表機器人從現在開始才會記錄戰績，使用.recent me卻查不到戰績屬於正常。"+
+                                               "3. 若太久(14天)未使用.recent me指令，機器人將會停止追蹤您的戰績。")
                     self.logger.info(f"提醒了{interaction.user.name} link後注意事項。")
                 except:
                     self.logger.error("",exc_info=True)

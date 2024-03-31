@@ -1,6 +1,6 @@
 from discord.ext import commands
 from core.lkkcog import lkkCog
-from core.log import loggerhandler
+from core.lkk_log import loggerhandler
 from pathlib import Path
 import importlib
 
@@ -13,7 +13,7 @@ class cogsmanager(lkkCog):
     def __init__(self, bot: commands.Bot):
         super().__init__(bot)
         logname="cogsmanager"
-        self.logger=loggerhandler("lkkdc."+logname,logname)
+        self.logger=loggerhandler("lkkdc."+logname,logname,consoleattach=False)
 
     def modulereload(self):
         p=Path(".")

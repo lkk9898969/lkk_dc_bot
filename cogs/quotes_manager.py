@@ -1,7 +1,7 @@
 import discord
 from discord import app_commands
 from discord.ext import commands
-from core.log import loggerhandler
+from core.lkk_log import loggerhandler
 from core.lkkcog import lkkCog
 from core.quotes import quotes
 from core.relationword import relationword
@@ -13,7 +13,7 @@ class quotesmanager(lkkCog):
     def __init__(self, bot: commands.Bot):
         super().__init__(bot)
         logname="quotes_manager"
-        self.logger=loggerhandler("lkkdc."+logname,logname)
+        self.logger=loggerhandler("lkkdc."+logname,logname,consoleattach=False)
         self.quotes=quotes(self.logger,quotesfile)
         self.relationword=relationword(self.logger,"quotes_relationword.json")
 

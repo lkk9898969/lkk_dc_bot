@@ -1,7 +1,7 @@
 import discord,asyncio,json
 from pathlib import Path
 from discord.ext import commands
-from core.log import loggerhandler
+from core.lkk_log import loggerhandler
 
 cogs="cogs"
 botjson='lkk.json'
