@@ -42,3 +42,15 @@ class lkkCog(commands.Cog):
             return False
 
         return app_commands.check(predicate)
+
+
+def is_admin_check(Interaction: discord.Interaction):
+    for i in ADMIN:
+        role = discord.utils.get(Interaction.guild.roles, id=i)
+        if role in Interaction.user.roles:
+            return True
+    return False
+
+
+def is_admin_check_decorator():
+    return app_commands.check(is_admin_check)

@@ -1,5 +1,6 @@
 __pycache__
 .vscode
+log
 *.log
 *.bat
 lkk.json

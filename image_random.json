@@ -1,142 +1,336 @@
 {
     ".jpg": {
-        "?": [
-            "az!?.jpg",
-            "\\拉煙.jpg"
-        ],
-        "捲好強": [
-            "\\捲好強.jpg",
-            "\\捲好強2.jpg",
-            "\\捲好強3.jpg"
-        ],
-        "捲大哥": [
-            "\\捲好強1.jpg"
-        ],
-        "生日快樂": [
-            "\\生日快樂.jpg"
-        ],
-        "勝率車": [
-            "\\穩.jpg",
-            "\\勝率車.jpg",
-            "\\勝率車1.jpg"
-        ],
-        "穩": [
-            "\\穩.jpg",
-            "\\勝率車.jpg"
-        ],
-        "老王": [
-            "\\老王.jpg",
-            "\\老王1.jpg"
-        ],
-        "命好強": [
-            "\\命好強.jpg",
-            "\\爛水表.jpg",
-            "\\命鹹菜.jpg"
-        ],
-        ".recent me 1": [
-            "\\爛水表.jpg"
-        ],
-        "工三小": [
-            "\\工三小.jpg",
-            "\\公沙咪蕭威.jpg"
-        ],
-        "命鹹菜": [
-            "\\命鹹菜.jpg",
-            "\\鹹菜.gif",
-            "\\爛水表.jpg"
-        ],
-        "風好強": [
-            "\\風好強.jpg"
-        ],
-        "捲都": [
-            "\\蛋捲都.jpg",
-            "\\蛋捲都2.jpg",
-            "\\蛋捲都3.jpg",
-            "\\蛋捲都.jpg",
-            "\\蛋捲都4.jpg"
-        ],
-        "月月": [
-            "\\月月是女生.jpg"
-        ],
-        "捲": [
-            "\\捲.jpg",
-            "\\捲1.jpg"
-        ],
-        "SS": [
-            "\\SSWJ.jpg"
-        ],
-        "不服氣": [
-            "\\不服氣.jpg"
-        ],
-        "生氣囉": [
-            "\\不服氣.jpg"
-        ],
-        "幹": [
-            "\\幹.jpg"
-        ],
-        "DD": [
-            "\\DD.jpg"
-        ],
-        "因該": [
-            "\\應.jpg",
-            "\\應啦幹.jpg",
-            "\\應啦幹1.jpg",
-            "\\應啦幹2.jpg"
-        ]
+        "?": {
+            "allMatch": true,
+            "content": [
+                "az!?.jpg",
+                "\\拉煙.jpg"
+            ],
+            "related": [
+                "??",
+                "？"
+            ]
+        },
+        "捲好強": {
+            "allMatch": true,
+            "content": [
+                "\\捲好強.jpg",
+                "\\捲好強2.jpg",
+                "\\捲好強3.jpg"
+            ],
+            "related": []
+        },
+        "捲大哥": {
+            "allMatch": true,
+            "content": [
+                "\\捲好強1.jpg"
+            ],
+            "related": []
+        },
+        "生日快樂": {
+            "allMatch": true,
+            "content": [
+                "\\生日快樂.jpg"
+            ],
+            "related": []
+        },
+        "勝率車": {
+            "allMatch": true,
+            "content": [
+                "\\穩.jpg",
+                "\\勝率車.jpg",
+                "\\勝率車1.jpg"
+            ],
+            "related": []
+        },
+        "穩": {
+            "allMatch": false,
+            "content": [
+                "\\穩.jpg",
+                "\\勝率車.jpg"
+            ],
+            "related": [
+                "穩到靠北",
+                "穩到靠背",
+                "穩的",
+                "穩的啦",
+                "穩的拉"
+            ]
+        },
+        "老王": {
+            "allMatch": true,
+            "content": [
+                "\\老王.jpg",
+                "\\老王1.jpg"
+            ],
+            "related": []
+        },
+        "命好強": {
+            "allMatch": true,
+            "content": [
+                "\\命好強.jpg"
+            ],
+            "related": []
+        },
+        ".recent me 1": {
+            "allMatch": true,
+            "content": [
+                "\\爛水表.jpg"
+            ],
+            "related": []
+        },
+        "工三小": {
+            "allMatch": true,
+            "content": [
+                "\\工三小.jpg",
+                "\\公沙咪蕭威.jpg"
+            ],
+            "related": [
+                "公三小",
+                "供三小",
+                "供沙小",
+                "公沙小",
+                "公殺小",
+                "工殺小",
+                "工沙小"
+            ]
+        },
+        "命鹹菜": {
+            "allMatch": true,
+            "content": [
+                "\\命鹹菜.jpg",
+                "\\鹹菜.gif",
+                "\\爛水表.jpg"
+            ],
+            "related": [
+                "命命都不帶",
+                "命命都",
+                "命不帶",
+                "命都",
+                "命命又鹹菜"
+            ]
+        },
+        "風好強": {
+            "allMatch": true,
+            "content": [
+                "\\風好強.jpg"
+            ],
+            "related": []
+        },
+        "捲都": {
+            "allMatch": true,
+            "content": [
+                "\\蛋捲都.jpg",
+                "\\蛋捲都2.jpg",
+                "\\蛋捲都3.jpg",
+                "\\蛋捲都.jpg",
+                "\\蛋捲都4.jpg",
+                "\\捲1.jpg"
+            ],
+            "related": []
+        },
+        "月月": {
+            "allMatch": true,
+            "content": [
+                "\\月月是女生.jpg"
+            ],
+            "related": []
+        },
+        "捲": {
+            "allMatch": true,
+            "content": [
+                "\\捲.jpg"
+            ],
+            "related": []
+        },
+        "SS": {
+            "allMatch": true,
+            "content": [
+                "\\SSWJ.jpg"
+            ],
+            "related": [
+                "SSWJ",
+                "貓砂",
+                "水下小人"
+            ]
+        },
+        "不服氣": {
+            "allMatch": true,
+            "content": [
+                "\\不服氣.jpg"
+            ],
+            "related": [
+                "怎樣",
+                "生氣囉"
+            ]
+        },
+        "幹": {
+            "allMatch": false,
+            "content": [
+                "\\幹.jpg"
+            ],
+            "related": [
+                "幹妳娘",
+                "幹您娘"
+            ]
+        },
+        "DD": {
+            "allMatch": true,
+            "content": [
+                "\\DD.jpg"
+            ],
+            "related": []
+        },
+        "因該": {
+            "allMatch": false,
+            "content": [
+                "\\應.jpg",
+                "\\應啦幹.jpg",
+                "\\應啦幹1.jpg",
+                "\\應啦幹2.jpg"
+            ],
+            "related": []
+        },
+        "測試": {
+            "allMatch": true,
+            "content": [
+                "\\老王.jpg"
+            ],
+            "related": []
+        }
     },
     ".gif": {
-        "?": [
-            "az?.gif",
-            "\\你要不要聽聽看你現在在講什麼.gif"
-        ],
-        "鹹菜": [
-            "\\鹹菜.gif"
-        ],
-        "muri": [
-            "\\muri.gif"
-        ],
-        "殺小": [
-            "\\蝦餃.gif",
-            "\\我的餃.gif",
-            "\\暗礁之神.gif"
-        ],
-        "幹": [
-            "\\幹你娘.gif",
-            "\\幹你娘2.gif"
-        ],
-        "幹你娘": [
-            "\\幹你娘.gif",
-            "\\幹你娘2.gif"
-        ],
-        "我的餃": [
-            "\\我的餃.gif"
-        ],
-        "懷念": [
-            "\\我的餃.gif"
-        ],
-        "接雷": [
-            "\\接雷.gif"
-        ],
-        "大佬": [
-            "\\大佬帶.gif"
-        ],
-        "龍媽": [
-            "\\龍媽.gif"
-        ],
-        "不要": [
-            "\\muri.gif"
-        ],
-        "暗礁之神": [
-            "\\暗礁之神.gif"
-        ],
-        "我超爛": [
-            "\\本群最爛.gif"
-        ],
-        "散佈": [
-            "\\散佈.gif"
-        ],
-        "好隊友": [
-            "\\好隊友.gif"
-        ]
+        "?": {
+            "allMatch": true,
+            "content": [
+                "az?.gif",
+                "\\你要不要聽聽看你現在在講什麼.gif"
+            ],
+            "related": [
+                "??",
+                "？"
+            ]
+        },
+        "鹹菜": {
+            "allMatch": true,
+            "content": [
+                "\\鹹菜.gif"
+            ],
+            "related": [
+                "嫌菜"
+            ]
+        },
+        "muri": {
+            "allMatch": true,
+            "content": [
+                "\\muri.gif"
+            ],
+            "related": []
+        },
+        "殺小": {
+            "allMatch": true,
+            "content": [
+                "\\蝦餃.gif",
+                "\\我的餃.gif",
+                "\\暗礁之神.gif"
+            ],
+            "related": [
+                "沙小",
+                "蝦餃"
+            ]
+        },
+        "幹": {
+            "allMatch": false,
+            "content": [
+                "\\幹你娘.gif",
+                "\\幹你娘2.gif"
+            ],
+            "related": [
+                "幹妳娘",
+                "幹您娘"
+            ]
+        },
+        "我的餃": {
+            "allMatch": true,
+            "content": [
+                "\\我的餃.gif"
+            ],
+            "related": []
+        },
+        "懷念": {
+            "allMatch": true,
+            "content": [
+                "\\我的餃.gif"
+            ],
+            "related": []
+        },
+        "接雷": {
+            "allMatch": true,
+            "content": [
+                "\\接雷.gif"
+            ],
+            "related": []
+        },
+        "大佬": {
+            "allMatch": false,
+            "content": [
+                "\\大佬帶.gif"
+            ],
+            "related": [
+                "大老"
+            ]
+        },
+        "龍媽": {
+            "allMatch": true,
+            "content": [
+                "\\龍媽.gif"
+            ],
+            "related": []
+        },
+        "不要": {
+            "allMatch": true,
+            "content": [
+                "\\muri.gif"
+            ],
+            "related": []
+        },
+        "暗礁之神": {
+            "allMatch": true,
+            "content": [
+                "\\暗礁之神.gif"
+            ],
+            "related": []
+        },
+        "我超爛": {
+            "allMatch": true,
+            "content": [
+                "\\本群最爛.gif"
+            ],
+            "related": []
+        },
+        "散佈": {
+            "allMatch": true,
+            "content": [
+                "\\散佈.gif"
+            ],
+            "related": [
+                "散布",
+                "RNG"
+            ]
+        },
+        "好隊友": {
+            "allMatch": true,
+            "content": [
+                "\\好隊友.gif"
+            ],
+            "related": []
+        },
+        "<:Feturtle:1306537504111067167>": {
+            "allMatch": true,
+            "content": [
+                "\\維多.gif"
+            ],
+            "related": []
+        }
     }
 }
