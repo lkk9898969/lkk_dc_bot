@@ -1,7 +1,7 @@
 import discord, logging
 from discord import app_commands
 from discord.ext import commands
-from typing import Optional
+from typing import Optional, Callable, Any
 
 ADMIN = [1144650057132540046, 573818863419129876]
 
@@ -42,6 +42,24 @@ class lkkCog(commands.Cog):
             return False
 
         return app_commands.check(predicate)
+
+    def getReply(
+        self,
+        ctx: commands.Context = None,
+        Interaction: discord.Interaction = None
+    ) -> tuple[str, Callable[[str, bool], None]] | tuple[None, None]:
+        if ctx is None and Interaction is None:
+            return None, None
+        if ctx is not None:
+            author = ctx.author.name
+            reply: Callable[[str, Any], None] = lambda x, y: ctx.reply(x)
+        else:
+            author = Interaction.user.name
+            reply: Callable[
+                [str, bool],
+                None] = lambda x, y: Interaction.response.send_message(
+                    x, ephemeral=y)
+        return author, reply
 
 
 def is_admin_check(Interaction: discord.Interaction):

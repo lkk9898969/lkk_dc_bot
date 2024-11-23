@@ -51,24 +51,20 @@ class ImageManager(lkkCog):
                            *,
                            ctx: commands.Context = None,
                            interaction: discord.Interaction = None):
-        if ctx is None and interaction is None:
+        author, reply = self.getReply(ctx, interaction)
+        if author is None:
             return
-        if ctx is None:
-            reply = lambda x: interaction.response.send_message(x,
-                                                                ephemeral=True)
-        else:
-            reply = ctx.reply
         try:
             if imgname.endswith('.jpg'):
                 self.RandomImageProcesser.imageJson.addimg('\\' + imgname, url)
-                await reply("新增成功!")
+                await reply("新增成功!", False)
                 self.logger.debug(f"新增了一個圖檔，觸發名:\\{imgname}，URL:{url}")
             elif imgname.endswith('.gif'):
                 self.RandomImageProcesser.imageJson.addimg('\\' + imgname, url)
-                await reply("新增成功!")
+                await reply("新增成功!", False)
                 self.logger.debug(f"新增了一個圖檔，觸發名:\\{imgname}，URL:{url}")
             else:
-                await reply(f"資料錯誤! 請確認觸發名稱是否為{fileextension}結尾!")
+                await reply(f"資料錯誤! 請確認觸發名稱是否為{fileextension}結尾!", True)
                 self.logger.debug(f"新增圖檔時檢測到觸發名不正確。觸發名:{imgname}，URL:{url}")
         except:
             self.logger.error("", exc_info=True)
@@ -79,21 +75,18 @@ class ImageManager(lkkCog):
                             *,
                             ctx: commands.Context = None,
                             interaction: discord.Interaction = None):
-        if ctx is None and interaction is None:
+        author, reply = self.getReply(ctx, interaction)
+        if author is None:
             return
-        if ctx is None:
-            reply = lambda x: interaction.response.send_message(x,
-                                                                ephemeral=True)
-        else:
-            reply = ctx.reply
+
         try:
             if self.RandomImageProcesser.updateRandomNameImage(
                     '\\' + imgname, randomname):
-                await reply("新增成功!")
+                await reply("新增成功!", False)
                 self.logger.debug(
                     f"新增了一個random名稱，圖檔名稱:\\{imgname}，random名稱:{randomname}")
             else:
-                await reply("新增失敗! 請詢問湯麵本人發生什麼事了。")
+                await reply("新增失敗! 請詢問湯麵本人發生什麼事了。", True)
                 self.logger.debug(
                     f"嘗試新增random資料庫但失敗。圖檔名稱:\\{imgname}，random名稱:{randomname}")
         except:
@@ -104,29 +97,23 @@ class ImageManager(lkkCog):
                           *words: str,
                           ctx: commands.Context = None,
                           interaction: discord.Interaction = None):
-        if ctx is None and interaction is None:
+        author, reply = self.getReply(ctx, interaction)
+        if author is None:
             return
-        if ctx is None:
-            author = interaction.user.name
-            reply = lambda x: interaction.response.send_message(x,
-                                                                ephemeral=True)
-        else:
-            author = ctx.author.name
-            reply = ctx.reply
         try:
             if words:
                 if self.RandomImageProcesser.checkRandomName(mainword):
                     for i in words:
                         self.RandomImageProcesser.updateRelatedWord(
                             mainword, i)
-                    await reply(f"新增成功!")
+                    await reply(f"新增成功!", False)
                 else:
-                    await reply(f"{mainword}不存在於隨機圖片庫中。")
+                    await reply(f"{mainword}不存在於隨機圖片庫中。", True)
                     self.logger.debug(
                         f"{author}嘗試新增 {mainword} 的關聯字，但 {mainword} 不存在於隨機圖片庫中。"
                     )
             else:
-                await reply("請輸入至少1個關聯字!")
+                await reply("請輸入至少1個關聯字!", True)
                 self.logger.debug(f"{author}嘗試新增關聯字但未給定關聯字。")
         except:
             self.logger.error("", exc_info=True)
@@ -217,7 +204,7 @@ class ImageManager(lkkCog):
         self.RandomImageProcesser.refresh()
         await ctx.reply("random刷新完成。")
 
-    @app_commands.command(name="image_list", description="列出所有可用觸發名稱(圖檔)")
+    @app_commands.command(name="list_image", description="列出所有可用觸發名稱(圖檔)")
     @app_commands.describe(ext="圖檔副檔名(Ex: .jpg )，若不選擇預設為輸出全部")
     @app_commands.choices(
         ext=[app_commands.Choice(name=i, value=i) for i in fileextension])
@@ -237,7 +224,7 @@ class ImageManager(lkkCog):
                 f"{interaction.user.name}試圖檢視副檔名為{ext}的所有圖片，但圖片庫未有任何符合條件的圖片。")
 
     @app_commands.command(
-        name="random_list",
+        name="list_random",
         description="列出所有可用的隨機觸發名稱。若有指定隨機觸發名，則改為回傳該隨機觸發名會觸發的圖片名稱。")
     @app_commands.describe(ext="圖檔副檔名(Ex: .jpg )，若不選擇預設為輸出全部",
                            random_name="指定的隨機觸發名")
@@ -276,7 +263,7 @@ class ImageManager(lkkCog):
                     f"{interaction.user.name}試圖檢視副檔名為{ext}的所有隨機圖片，但隨機圖片庫未有任何符合條件的圖片。"
                 )
 
-    @app_commands.command(name="word_search", description="列出指定隨機觸發名的關聯字。")
+    @app_commands.command(name="search_word", description="列出指定隨機觸發名的關聯字。")
     @app_commands.describe(random_name="隨機觸發名。")
     async def listrelationword(self, interaction: discord.Interaction,
                                random_name: str):
