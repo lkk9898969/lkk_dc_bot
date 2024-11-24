@@ -72,7 +72,7 @@ class CommandCogs(lkkCog):
             for i in slashcommands:
                 result += i + '\n'
             result += '斜線指令詳情請在<#470227564577947658>使用{/指令名稱}查看。\n'
-            result = "一般指令:\n    輸入指令時{}請忽略，那只是在告訴你那是個參數。\n"
+            result += "一般指令:\n    輸入指令時{}請忽略，那只是在告訴你那是個參數。\n"
             for i in command:
                 result += f"${i[0]}\n格式: ${i[0]} {i[1]}\n功能:{i[2]}\n附註:{i[3]}\n"
             await interaction.response.send_message(result, ephemeral=True)

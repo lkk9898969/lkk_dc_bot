@@ -17,7 +17,7 @@ class QuotesJson():
         self.__logger = logger
         self.__name = name
         self.__quote = quote
-        self.__relatedName = relatedName
+        self.__relatedName = (relatedName if relatedName is not None else [])
         self.__logger.info(f"{self.__name}初始化完成。")
 
     def __contains__(self, item: str) -> bool:

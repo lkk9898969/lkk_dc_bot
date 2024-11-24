@@ -119,6 +119,36 @@ class ImageManager(lkkCog):
             self.logger.error("", exc_info=True)
 
     #-------------------------------------------
+    async def extAutoComplete(self, interaction: discord.Interaction,
+                              current: str) -> list[app_commands.Choice[int]]:
+        if current:
+            return [
+                app_commands.Choice(name=j, value=i)
+                for i, j in enumerate(fileextension) if j.startswith(current)
+            ]
+        else:
+            return [
+                app_commands.Choice(name=j, value=i)
+                for i, j in enumerate(fileextension)
+            ]
+
+    async def randomNameAutoComplete(
+            self, interaction: discord.Interaction,
+            current: str) -> list[app_commands.Choice[str]]:
+        try:
+            ext = fileextension[int(interaction.namespace['ext'])]
+        except:
+            ext = None
+        result = []
+        for i in self.RandomImageProcesser.getAllRandomName(ext, False):
+            if len(result) > 20:
+                break
+            if (not current) or (current.lower() in i.lower()):
+                if i not in result:
+                    result.append(i)
+        return [app_commands.Choice(name=i, value=i) for i in result]
+
+    #-------------------------------------------
 
     @commands.command(name='UpdateImage', aliases=['ir', 'IR'])
     async def UpdateImageCmd(self, ctx: commands.Context, imgname: str,
@@ -228,43 +258,48 @@ class ImageManager(lkkCog):
         description="列出所有可用的隨機觸發名稱。若有指定隨機觸發名，則改為回傳該隨機觸發名會觸發的圖片名稱。")
     @app_commands.describe(ext="圖檔副檔名(Ex: .jpg )，若不選擇預設為輸出全部",
                            random_name="指定的隨機觸發名")
-    @app_commands.choices(
-        ext=[app_commands.Choice(name=i, value=i) for i in fileextension])
+    @app_commands.autocomplete(ext=extAutoComplete,
+                               random_name=randomNameAutoComplete)
     async def listrandom(self,
                          interaction: discord.Interaction,
-                         ext: Optional[str] = None,
+                         ext: Optional[int] = None,
                          random_name: Optional[str] = None):
-        listimg = self.RandomImageProcesser.listRandom(ext, random_name)
-        if ext is None:
-            ext = '無'
-        if random_name:
-            if (listimg):
-                await interaction.response.send_message(content=listimg,
+        if ext is not None:
+            try:
+                _ext = fileextension[ext]
+            except:
+                await interaction.response.send_message(content=f"請輸入正確的副檔名。",
                                                         ephemeral=True)
-                self.logger.info(
-                    f"向{interaction.user.name}回傳了關於 {random_name} 副檔名:{ext}的隨機圖庫。"
-                )
-            else:
-                await interaction.response.send_message(
-                    content=f"隨機觸發名{random_name}不存在於隨機圖庫中。", ephemeral=True)
-                self.logger.info(
-                    f"{interaction.user.name}試圖檢視隨機觸發名 {random_name} 副檔名:{ext}，但隨機圖庫未有該隨機觸發名。"
-                )
-
+                self.logger.debug(
+                    f"{interaction.user.name}嘗試檢視副檔名為{ext}的隨機圖片，但輸入的副檔名不正確。")
+                return
         else:
-            if (listimg):
+            _ext = None
+
+        listimg = self.RandomImageProcesser.listRandom(_ext, random_name)
+        if (listimg):
+            if random_name:
                 await interaction.response.send_message(content=listimg,
                                                         ephemeral=True)
-                self.logger.info(f"向{interaction.user.name}回傳了隨機圖片庫。副檔名:{ext}")
-            else:
-                await interaction.response.send_message(
-                    content=f"隨機圖庫中不存在任何副檔名為{ext}的圖。", ephemeral=True)
                 self.logger.info(
-                    f"{interaction.user.name}試圖檢視副檔名為{ext}的所有隨機圖片，但隨機圖片庫未有任何符合條件的圖片。"
+                    f"向{interaction.user.name}回傳了關於 {random_name} {('副檔名:' + _ext) if _ext else ''}的隨機圖庫。"
                 )
+                return
+            await interaction.response.send_message(content=listimg,
+                                                    ephemeral=True)
+            self.logger.info(
+                f"向{interaction.user.name}回傳了隨機圖片庫。{('副檔名:' + _ext ) if _ext else ''}"
+            )
+        else:
+            await interaction.response.send_message(
+                content=f"隨機觸發名{random_name}不存在於隨機圖庫中。", ephemeral=True)
+            self.logger.info(
+                f"{interaction.user.name}試圖檢視隨機觸發名 {random_name} {(('副檔名:' + _ext) if _ext else '')}，但隨機圖庫未有該隨機觸發名。"
+            )
 
     @app_commands.command(name="search_word", description="列出指定隨機觸發名的關聯字。")
     @app_commands.describe(random_name="隨機觸發名。")
+    @app_commands.autocomplete(random_name=randomNameAutoComplete)
     async def listrelationword(self, interaction: discord.Interaction,
                                random_name: str):
         try:
@@ -301,17 +336,10 @@ class ImageManager(lkkCog):
                                   message):
             return
 
-        for i in fileextension:
-            if message.content.endswith(i):
-                flag = False
-                if await self.returnimage(
-                        self.RandomImageProcesser.getRandomImage, message):
-                    return
-                else:
-                    if await self.returnimage(
-                            self.RandomImageProcesser.imageJson.getimg,
-                            message):
-                        return
+        if any(message.content.endswith(i) for i in fileextension):
+            if await self.returnimage(
+                    self.RandomImageProcesser.imageJson.getimg, message):
+                return
 
 
 async def setup(bot: commands.Bot):

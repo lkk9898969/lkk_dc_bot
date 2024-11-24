@@ -130,13 +130,18 @@ class RandomNameJson():
                 return random.choice(
                     self.__ranjson[fileExt][randomName][CONTENT])
             return None
-
-    def getAllRandomNameStr(self, fileExt) -> str:
+    
+    def getAllRandomName(self, fileExt: str) -> list[str]:
         '''
         取得所有隨機名稱
         '''
-        return '、'.join(
-            [randomName for randomName in self.__ranjson[fileExt].keys()])
+        return [randomName for randomName in self.__ranjson[fileExt].keys()]
+
+    def getAllRandomNameStr(self, fileExt: str) -> str:
+        '''
+        取得所有隨機名稱
+        '''
+        return '、'.join(self.getAllRandomName(fileExt))
 
     def getImageList(self, randomName: str, fileExt: str) -> list[str]:
         '''
@@ -147,20 +152,13 @@ class RandomNameJson():
         return []
 
     def getRelatedWordList(self,
-                           randomName: str,
-                           fileExt: str = None) -> list[str]:
+                           randomName: str) -> list[str]:
         '''
         取得隨機名稱的相關字串列表
         '''
-        if fileExt is None:
-            return [
-                i for ext in FILE_EXTENSION
-                for i in self.__ranjson[ext][randomName][RELATEDWORD]
-                if randomName in self.__ranjson[ext]
-            ]
-
-        if randomName in self.__ranjson[fileExt]:
-            return self.__ranjson[fileExt][randomName][RELATEDWORD]
+        for i in FILE_EXTENSION:
+            if randomName in self.__ranjson[i]:
+                return self.__ranjson[i][randomName][RELATEDWORD]
         return []
 
     def getMatch(self, randomName: str) -> bool | None:
@@ -275,6 +273,18 @@ class RandomImage():
         '''
         self.__logger.info(f"{__name__}取得{randomName}的關聯字庫。")
         return '、'.join(self.__RandomNameJson.getRelatedWordList(randomName))
+    
+    def getAllRandomName(self, fileExt: str = None, loggerEnalbe: bool = True) -> list[str]:
+        if fileExt is None:
+            if loggerEnalbe:
+                self.__logger.info(f"{__name__}取得所有隨機名稱。")
+            return [
+                i for ext in FILE_EXTENSION
+                for i in self.__RandomNameJson.getAllRandomName(ext)]
+        else:
+            if loggerEnalbe:
+                self.__logger.info(f"{__name__}取得{fileExt}副檔名的隨機名稱。")
+            return self.__RandomNameJson.getAllRandomName(fileExt)
 
     def listRandom(self, fileExt: str = None, randomName: str | None = None):
         result = ""
