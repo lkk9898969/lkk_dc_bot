@@ -249,6 +249,7 @@ class RandomImage():
         if self.checkRandomName(randomName):
             self.__RandomNameJson.changeMatch(randomName, allMatch)
             self.__RandomNameJson.saveJson()
+            self.__RandomNameJson.refresh()
             self.__logger.info(f"{__name__}更新{randomName}的匹配規則為{allMatch}。")
             return True
         else:
