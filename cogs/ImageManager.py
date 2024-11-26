@@ -103,10 +103,8 @@ class ImageManager(lkkCog):
         try:
             if words:
                 if self.RandomImageProcesser.checkRandomName(mainword):
-                    words = tuple(words)
-                    for i in words:
-                        self.RandomImageProcesser.updateRelatedWord(
-                            mainword, i)
+                    self.RandomImageProcesser.updateRelatedWord(
+                        mainword, words)
                     await reply(f"新增成功!", False)
                 else:
                     await reply(f"{mainword}不存在於隨機圖片庫中。", True)

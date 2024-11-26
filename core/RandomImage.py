@@ -91,7 +91,7 @@ class RandomNameJson():
         '''
         for i in FILE_EXTENSION:
             if randomName in self.__ranjson[i]:
-                self.__ranjson[i][randomName][RELATEDWORD] += relatedWord
+                self.__ranjson[i][randomName][RELATEDWORD] += list(relatedWord)
                 self.__logger.info(
                     f"{__name__}類別新增{randomName}的相關字串至{randomName}的json圖庫。")
                 return True
@@ -108,6 +108,16 @@ class RandomNameJson():
             if randomName in self.__ranjson[i]:
                 self.__ranjson[i][randomName][ALLMATCH] = allMatch
         self.__logger.info(f"{__name__}類別變更{randomName}的匹配規則為{allMatch}。")
+    
+    def getRandomName(self, relationWord: str) -> str | None:
+        '''
+        取得隨機觸發名
+        '''
+        for i in FILE_EXTENSION:
+            for randomName, v in self.__ranjson[i].items():
+                if (relationWord in v[RELATEDWORD]):
+                    return randomName
+        return None
 
 
     def getRandomImageName(self,
@@ -177,6 +187,8 @@ class RandomNameJson():
                 result.append(randomName)
             elif any(True for word in relatedWordList if word in string):
                 result.append(randomName)
+        if result:
+            self.__logger.info(f"{__name__}從字串{string}中取得[{"、".join(i for i in result)}]。")
         return result
 
 
@@ -255,9 +267,12 @@ class RandomImage():
 
     def getRandomImage(self, messageContent: str) -> str | None:
         if randomName := self.__RandomNameJson.matchString(messageContent):
-            self.__logger.info(f"{__name__}偵測到隨機觸發名{randomName[0]}。")
             return self.imageJson.getimg(
                 self.__RandomNameJson.getRandomImageName(randomName[0]))
+        if randomName := self.__RandomNameJson.getRandomName(messageContent):
+            self.__logger.info(f"{__name__}偵測到關聯字{messageContent}。")
+            return self.imageJson.getimg(
+                self.__RandomNameJson.getRandomImageName(randomName))
 
         randomName, fileExt = self.__splitRandomName(messageContent)
         imageName = self.__RandomNameJson.getRandomImageName(
