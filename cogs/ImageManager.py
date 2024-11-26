@@ -103,6 +103,7 @@ class ImageManager(lkkCog):
         try:
             if words:
                 if self.RandomImageProcesser.checkRandomName(mainword):
+                    words = tuple(words)
                     for i in words:
                         self.RandomImageProcesser.updateRelatedWord(
                             mainword, i)
@@ -150,7 +151,7 @@ class ImageManager(lkkCog):
 
     #-------------------------------------------
 
-    @commands.command(name='UpdateImage', aliases=['ir', 'IR'])
+    @commands.command(name='UpdateImage', aliases=['ui', 'UI'])
     async def UpdateImageCmd(self, ctx: commands.Context, imgname: str,
                              url: str):
         if self.is_admin(ctx):
@@ -331,15 +332,16 @@ class ImageManager(lkkCog):
     async def on_message(self, message: discord.Message):
         if message.author == self.bot.user:
             return
-
-        if await self.returnimage(self.RandomImageProcesser.getRandomImage,
-                                  message):
+        if message.content.startswith(self.bot.command_prefix):
             return
 
         if any(message.content.endswith(i) for i in fileextension):
             if await self.returnimage(
                     self.RandomImageProcesser.imageJson.getimg, message):
                 return
+
+        await self.returnimage(self.RandomImageProcesser.getRandomImage,
+                               message)
 
 
 async def setup(bot: commands.Bot):

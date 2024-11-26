@@ -31,7 +31,8 @@ class image():
     def __exportjson(self, _file: str):
         json.dump(self.__json,
                   open(_file, 'w', encoding='utf-8'),
-                  ensure_ascii=False)
+                  ensure_ascii=False,
+                  indent=4)
         self.__logger.info(f"{__name__}輸出json圖庫。")
 
     def __getimg(self, _file_extension: str, _name: str):
@@ -53,7 +54,7 @@ class image():
     def getimg(self, name: str):
         for i in self.__file_extension:
             if name.endswith(i):
-                return self.__getimg(i, name[:-4])
+                return self.__getimg(i, name.replace(i, ""))
 
     def listimg(self, name: str):
         '''
@@ -65,15 +66,15 @@ class image():
             for fileext, value in self.__json.items():
                 imglist = imglist + f"\n{fileext}:\n"
                 for filename in value.keys():
-                    imglist = imglist + f"{filename} , "
-                imglist = imglist.rstrip(', ')
+                    imglist = imglist + f"{filename} ， "
+                imglist = imglist.rstrip('， ')
             imglist = imglist.lstrip()
             self.__logger.info(f"{__name__}回傳了圖片庫。")
         elif name in self.__file_extension:
             imglist = f"{name}:\n"
             for filename in self.__json[name].keys():
-                imglist = imglist + f"{filename} , "
-            imglist = imglist.rstrip(', ').lstrip()
+                imglist = imglist + f"{filename} ， "
+            imglist = imglist.rstrip('， ').lstrip()
             self.__logger.info(f"{__name__}回傳了副檔名為{name}圖片庫。")
         else:
             imglist = None

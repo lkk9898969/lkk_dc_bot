@@ -93,7 +93,7 @@ class RandomNameJson():
             if randomName in self.__ranjson[i]:
                 self.__ranjson[i][randomName][RELATEDWORD] += relatedWord
                 self.__logger.info(
-                    f"{__name__}類別新增{randomName}的相關字串至{i}的json圖庫。")
+                    f"{__name__}類別新增{randomName}的相關字串至{randomName}的json圖庫。")
                 return True
         self.__logger.warning(f"{__name__}類別無法找到隨機觸發名{randomName}")
         return False
@@ -202,7 +202,7 @@ class RandomImage():
         '''
         將隨機名稱分割為隨機名稱+副檔名(如果有)
         '''
-        if ext := self.__checkFileExt(randomName) is not None:
+        if (ext := self.__checkFileExt(randomName)) is not None:
             return randomName[:-len(ext)], ext
         return randomName, None
 
