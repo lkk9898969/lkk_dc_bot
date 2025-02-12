@@ -12,8 +12,8 @@ class lkkdc(commands.Bot):
     def __init__(self, owner_id: int):
         intents = discord.Intents.default()
         intents.message_content = True
-        activity = discord.Activity(type=discord.ActivityType.watching,
-                                    name="打/看指令表")
+        activity = discord.Activity(type=discord.ActivityType.custom,
+                                    name="custom",state="打/看指令表")
         super().__init__(command_prefix="$",
                          intents=intents,
                          activity=activity)

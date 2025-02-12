@@ -35,7 +35,7 @@
             "related": []
         },
         "勝率車": {
-            "allMatch": true,
+            "allMatch": false,
             "content": [
                 "\\穩.jpg",
                 "\\勝率車.jpg",
@@ -166,7 +166,7 @@
             ]
         },
         "幹": {
-            "allMatch": false,
+            "allMatch": true,
             "content": [
                 "\\幹.jpg"
             ],
@@ -192,12 +192,16 @@
             ],
             "related": []
         },
-        "測試": {
+        "月月牌損管": {
             "allMatch": true,
             "content": [
-                "\\老王.jpg"
+                "\\月月牌損管.jpg"
             ],
-            "related": []
+            "related": [
+                "月月牌損館",
+                "月月排損館",
+                "月月排損管"
+            ]
         }
     },
     ".gif": {
@@ -241,7 +245,7 @@
             ]
         },
         "幹": {
-            "allMatch": false,
+            "allMatch": true,
             "content": [
                 "\\幹你娘.gif",
                 "\\幹你娘2.gif"
@@ -330,6 +334,13 @@
             "allMatch": true,
             "content": [
                 "\\維多.gif"
+            ],
+            "related": []
+        },
+        "歐洲人": {
+            "allMatch": true,
+            "content": [
+                "\\歐洲人1.gif"
             ],
             "related": []
         }

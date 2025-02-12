@@ -188,7 +188,7 @@ class RandomNameJson():
             elif any(True for word in relatedWordList if word in string):
                 result.append(randomName)
         if result:
-            self.__logger.info(f"{__name__}從字串{string}中取得[{"、".join(i for i in result)}]。")
+            self.__logger.info(f"{__name__}從字串\"{string}\"中取得[{"、".join(i for i in result)}]。")
         return result
 
 
