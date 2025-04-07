@@ -63,7 +63,6 @@ async def main():
     while True:
         inputs = str(await input_async())
         logger.info(inputs)
-        logger.debug(inputs.encode())
         cmd = bot.get_command(inputs)
         if cmd:
             await bot.invoke(cmd)
