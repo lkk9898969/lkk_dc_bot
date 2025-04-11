@@ -1,2 +1,3 @@
 discord.py
 aioconsole
+./lkk_log_pack

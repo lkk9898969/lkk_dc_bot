@@ -2,8 +2,8 @@ import discord, json, time
 import random
 from discord.ext import commands
 from core.lkkcog import lkkCog
-from core.lkk_log import loggerhandler
 from typing import Optional
+from lkk_log import loggerhandler
 
 random.seed()
 
@@ -59,7 +59,7 @@ class CommandCogs(lkkCog):
             "lkkdc." + logname,
             logname + time.strftime("-%Y%m%d"),
             cwd="log",
-            attachConsole=False,
+            consoleattach=False,
         )
 
     @commands.Cog.listener()

@@ -2,7 +2,7 @@ import discord, asyncio, json, time
 from aioconsole import ainput as input_async
 from pathlib import Path
 from discord.ext import commands
-from core.lkk_log import loggerhandler
+from lkk_log import loggerhandler
 
 cogs = "cogs"
 botjson = "lkk.json"
