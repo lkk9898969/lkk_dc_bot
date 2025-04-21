@@ -2,7 +2,7 @@ import discord, asyncio, json, time
 from aioconsole import ainput as input_async
 from pathlib import Path
 from discord.ext import commands
-from lkk_log import loggerhandler
+from lkk_log import LkkLogger
 
 cogs = "cogs"
 botjson = "lkk.json"
@@ -40,8 +40,11 @@ class lkkdc(commands.Bot):
 def init():
     global logger, data
     logname = "lkkdc"
-    logger = loggerhandler(
-        "", logname + time.strftime("-%Y%m%d"), cwd="log", logfile_level="DEBUG"
+    logger = LkkLogger(
+        "",
+        filename=logname + time.strftime("-%Y%m%d"),
+        cwd="log",
+        fileLevel="DEBUG",
     )
 
     with open(botjson, "r", encoding="utf-8") as file:
@@ -61,15 +64,18 @@ async def main():
     bot = lkkdc(int(data["OWNER_ID"]))
     asyncio.create_task(bot.start(data["TOKEN"]))
     while True:
-        inputs = str(await input_async())
-        logger.info(inputs)
-        cmd = bot.get_command(inputs)
-        if cmd:
-            await bot.invoke(cmd)
-        elif await clicmd_list(inputs, bot=bot):
-            pass
-        else:
-            logger.error(f"{inputs} command not found!")
+        try:
+            inputs = str(await input_async())
+            logger.info(inputs)
+            cmd = bot.get_command(inputs)
+            if cmd:
+                await bot.invoke(cmd)
+            elif await clicmd_list(inputs, bot=bot):
+                pass
+            else:
+                logger.error(f"{inputs} command not found!")
+        except Exception as e:
+            logger.critical(exc_info=True)
 
 
 # 確定執行此py檔才會執行
