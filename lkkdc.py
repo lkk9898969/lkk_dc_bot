@@ -75,7 +75,7 @@ async def main():
             else:
                 logger.error(f"{inputs} command not found!")
         except Exception as e:
-            logger.critical(exc_info=True)
+            logger.critical(e, exc_info=True)
 
 
 # 確定執行此py檔才會執行
