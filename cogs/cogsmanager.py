@@ -1,7 +1,7 @@
 import importlib
 import time
 from discord.ext import commands
-from core.lkkcog import lkkCog
+from core.lkkCog import lkkCog
 from lkk_log import loggerhandler
 from pathlib import Path
 

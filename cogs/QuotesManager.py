@@ -2,7 +2,7 @@ import discord
 import time
 from discord import app_commands
 from discord.ext import commands
-from core.lkkcog import lkkCog, is_admin_check
+from core.lkkCog import lkkCog, is_admin_check
 from core.Quotes import Quotes
 from typing import Optional, Callable, Any
 from lkk_log import loggerhandler

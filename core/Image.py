@@ -2,7 +2,7 @@ import json
 import logging
 
 
-class image():
+class Image:
 
     def __init__(self, logger: logging.Logger, file: str, fileextension: list):
         self.__logger = logger
@@ -14,7 +14,7 @@ class image():
         self.__logger.info(f"{__name__}開始初始化json圖庫。")
         self.__json = {}
         try:
-            j = json.load(open(_file, 'r', encoding='utf-8'))
+            j = json.load(open(_file, "r", encoding="utf-8"))
         except FileNotFoundError:
             self.__logger.warning(f"初始化json失敗! 無法找到json檔案{_file} !")
             return
@@ -29,10 +29,12 @@ class image():
                 continue
 
     def __exportjson(self, _file: str):
-        json.dump(self.__json,
-                  open(_file, 'w', encoding='utf-8'),
-                  ensure_ascii=False,
-                  indent=4)
+        json.dump(
+            self.__json,
+            open(_file, "w", encoding="utf-8"),
+            ensure_ascii=False,
+            indent=4,
+        )
         self.__logger.info(f"{__name__}輸出json圖庫。")
 
     def __getimg(self, _file_extension: str, _name: str):
@@ -40,7 +42,8 @@ class image():
             try:
                 result = self.__json[_file_extension][_name]
                 self.__logger.info(
-                    f"{__name__}回傳了一個圖片。圖片名.副檔名:{_name}{_file_extension}")
+                    f"{__name__}回傳了一個圖片。圖片名.副檔名:{_name}{_file_extension}"
+                )
                 return result
             except KeyError:
                 return None
@@ -48,7 +51,8 @@ class image():
     def __addimg(self, _file_extension: str, _name: str, _url: str):
         self.__json[_file_extension][_name] = _url
         self.__logger.info(
-            f"{__name__}新增了一個圖片。圖片名.副檔名:{_name}{_file_extension}")
+            f"{__name__}新增了一個圖片。圖片名.副檔名:{_name}{_file_extension}"
+        )
         self.__exportjson(self.__filename)
 
     def getimg(self, name: str):
@@ -57,31 +61,31 @@ class image():
                 return self.__getimg(i, name.replace(i, ""))
 
     def listimg(self, name: str):
-        '''
+        """
         return string of all images in the library or images with specific file extension
         like: "jpg: img1.jpg, img2.jpg, img3.jpg"
-        '''
+        """
         if name == "all":
             imglist = ""
             for fileext, value in self.__json.items():
                 imglist = imglist + f"\n{fileext}:\n"
                 for filename in value.keys():
                     imglist = imglist + f"{filename} ， "
-                imglist = imglist.rstrip('， ')
+                imglist = imglist.rstrip("， ")
             imglist = imglist.lstrip()
             self.__logger.info(f"{__name__}回傳了圖片庫。")
         elif name in self.__file_extension:
             imglist = f"{name}:\n"
             for filename in self.__json[name].keys():
                 imglist = imglist + f"{filename} ， "
-            imglist = imglist.rstrip('， ').lstrip()
+            imglist = imglist.rstrip("， ").lstrip()
             self.__logger.info(f"{__name__}回傳了副檔名為{name}圖片庫。")
         else:
             imglist = None
         return imglist
 
     def addimg(self, name: str, url: str):
-        if (url.startswith("http")):
+        if url.startswith("http"):
             for i in self.__file_extension:
                 if name.endswith(i):
                     self.__addimg(i, name.rstrip(i), url)

@@ -2,7 +2,7 @@ import json
 import logging
 import random
 
-from core.image import image
+from core.Image import Image
 
 random.seed()
 FILE_EXTENSION = [".jpg", ".gif"]
@@ -195,7 +195,7 @@ class RandomImage:
 
     def __init__(self, logger: logging.Logger, ranfile: str, imgfile: str):
         self.__logger = logger
-        self.imageJson = image(logger, imgfile, FILE_EXTENSION)
+        self.imageJson = Image(logger, imgfile, FILE_EXTENSION)
         self.__RandomNameJson = RandomNameJson(logger, ranfile)
 
     def __checkFileExt(self, imageName: str):

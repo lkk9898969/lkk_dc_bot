@@ -1,7 +1,7 @@
 import discord, json, time
 import random
 from discord.ext import commands
-from core.lkkcog import lkkCog
+from core.lkkCog import lkkCog
 from typing import Optional
 from lkk_log import loggerhandler
 
