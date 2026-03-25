@@ -91,9 +91,30 @@ class CommandCogs(lkkCog):
             self.logger.error("", exc_info=True)
 
     @discord.app_commands.command(
+        name="stop", description="(管理員用) 關閉機器人"
+    )
+    @discord.app_commands.default_permissions(administrator=True)
+    @discord.app_commands.checks.has_permissions(administrator=True)
+    async def stop_bot(self, interaction: discord.Interaction):
+        if self.is_admin(Interaction=interaction):
+            await interaction.response.send_message("正在關閉Bot...", ephemeral=True)
+            self.logger.info(f"Stop bot.")
+            await self.bot.close()
+            exit(0)
+        else:
+            await interaction.response.send_message(
+                f"這個指令只有管理員才能使用! {random.choice(scolds)}", delete_after=5
+            )
+            self.logger.info(
+                f"{interaction.user.name}嘗試使用stop指令但被機器人嘲笑了一番。"
+            )
+
+    @discord.app_commands.command(
         name="help_admin", description="(管理員用) 查詢指令用法"
     )
     @discord.app_commands.describe(command_name="指定的指令，可空白。")
+    @discord.app_commands.default_permissions(administrator=True)
+    @discord.app_commands.checks.has_permissions(administrator=True)
     @discord.app_commands.choices(command_name=command_choices)
     async def adminhelp(
         self,
