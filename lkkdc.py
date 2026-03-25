@@ -62,21 +62,26 @@ async def clicmd_list(cmd: str, **kwargs):
 
 async def main():
     bot = lkkdc(int(data["OWNER_ID"]))
-    asyncio.create_task(bot.start(data["TOKEN"]))
-    while True:
-        try:
-            inputs = str(await input_async())
-            logger.info(inputs)
-            cmd = bot.get_command(inputs)
-            if cmd:
-                await bot.invoke(cmd)
-            elif await clicmd_list(inputs, bot=bot):
-                pass
-            else:
-                logger.error(f"{inputs} command not found!")
-        except Exception as e:
-            logger.critical(e, exc_info=True)
+    enable_cli = bool(data["enable_cli"])
+    async def CLI():
+        while enable_cli:
+            try:
+                inputs = str(await input_async())
+                logger.info(inputs)
+                cmd = bot.get_command(inputs)
+                if cmd:
+                    await bot.invoke(cmd)
+                elif await clicmd_list(inputs, bot=bot):
+                    pass
+                else:
+                    logger.error(f"{inputs} command not found!")
+            except Exception as e:
+                logger.critical(e, exc_info=True)
+                return
+        logger.info("CLI不可用!")
 
+    asyncio.create_task(CLI())
+    await bot.start(data["TOKEN"])
 
 # 確定執行此py檔才會執行
 if __name__ == "__main__":
